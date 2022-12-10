@@ -1,0 +1,61 @@
+{% load static %}
+<header class="theme-default">
+    <div id="search-box">
+        <div class="container">
+            <form action="/" method="POST">
+                <input type="text" placeholder="Searching for news" name="search"/>
+                <button><i class="fas fa-arrow-right"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header-wrapper">
+            <a class="header__logo" href="{% url 'index' %}"><img src="{% static 'apps/assets/images/logo1.png' %}"
+                                                                  alt="Logo"/></a>
+            <nav>
+                <ul>
+                    <li class="nav-item {% if request.path == '/' %}
+                    active
+                    {% endif %} "><a href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item {% if request.path == '/blog' %}
+                    active
+                    {% endif %} "><a href="{% url 'blog' %}">Blog</a>
+                        <!-- Blog category drop down -->
+                        <!-- <ul class="dropdown-menu">
+                          <li><a href="#">BLOG CATEGORY 1</a></li>
+                          <li><a href="#">BLOG CATEGORY 2</a></li>
+                          <li><a href="#">BLOG CATEGORY 3</a></li>
+                        </ul> -->
+                    </li>
+                    <li class="nav-item{% if request.path == '/about' %}
+                    active
+                    {% endif %} "><a href="{% url 'about' %}">About</a></li>
+                    <li class="nav-item{% if request.path == '/contact' %}
+                    active
+                    {% endif %} "><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Social Icons -->
+            <div class="header__icon-group"><a href="#" id="search"><i class="fas fa-search"></i></a>
+
+                <div class="social">
+                {% for i, v in custom_about.social.items %}
+                    <a href="#"><i class="fab fa-{{ i }}"></i></a>
+
+                {% endfor %}
+                <a id="mobile-menu-controller" href="#"><i class="fas fa-bars"></i></a>
+                </div>
+
+            </div>
+        {% if user.is_anonymous %}
+        <a class="btn btn-toolbar" href="{% url 'register_page' %}">Sign up</a>
+            <a class="btn btn-toolbar" href="{% url 'login_page' %}">Log in</a>
+            {% else %}
+            <a class="btn btn-toolbar" href="{% url 'profile' %}">My profile</a>
+            <a class="btn btn-toolbar" href="{% url 'logout_page' %}">Log out</a>
+        {% endif %}
+
+        </div>
+
+    </div>
+</header>

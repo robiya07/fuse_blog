@@ -1,0 +1,133 @@
+{% extends 'apps/parts/base.html' %}
+{% load static %}
+{% block main_contents %}
+    <div id="content">
+    <div class="post">
+      <div class="container">
+        <div class="post-standard">
+          <div class="post-standard__banner">
+            <div class="post-standard__banner__image">
+              <img src="{{ post.image.url }}" alt="Post banner image">
+            </div>
+            <div class="post-standard__banner__content">
+                  <div class="post-card -center">
+                    <div></div>
+                    <div class="card__content">
+                      <h5 class="card__content-category">{{ post.category.first.name }}</h5>
+                      <a class="card__content-title" href="{% url 'post' post.slug %}">{{ post.title }}</a>
+                      <div class="card__content-info">
+                        <div class="info__time"><i class="far fa-clock"></i>
+                          <p>{{ post.posted_at }}</p>
+                        </div>
+                        <div class="info__comment"><i class="far fa-comment"></i>
+                          <p>{{ post.views }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-8 mx-auto">
+              <div class="post-standard__content">
+
+                <!-- content Starts here -->
+                <p class="paragraph">{{ post.body|safe }}
+                </p>
+
+                <!-- Post footer -->
+                <div class="post-footer">
+                  <div class="post-footer__tags center">
+                    <div class="tags-group">
+                        {% for i in post.category.all %}
+                      <a class="tag-btn" href="{% url 'blog' %}">{{ i.name }}</a>
+
+                        {% endfor %}
+
+
+                    </div>
+                  </div>
+                  <div class="post-footer__author">
+{#                      {% if post.user.avatar %}#}
+                    <div class="author__avatar">
+                      <!-- img size 150 x 150 -->
+                      <img src="{% static "apps/assets/images/post_detail/auth.png" %}" alt="Author avatar">
+                    </div>
+                    <!-- Author Info -->
+                    <div class="author__info">
+                        <h5>{{ post.user.first_name }} {{ post.user.last_name }}</h5>
+                        <p>{{ post.user.bio }}</p>
+                        <!-- social Media -->
+                        <div class="social-media">
+                            {% for name, urls in post.user.social.items %}
+                            <a href="{{ urls.url }}">
+                              <i class="fab fa-{{ name }}"></i>
+                            </a>
+
+                            {% endfor %}
+
+                        </div>
+                    </div>
+                  </div>
+                  <!-- Related Posts -->
+                  <div class="post-footer__related">
+                  </div>
+                  <!-- comments  -->
+                  <div class="post-footer__comment">
+                    <h3 class="comment-title"> <span>3 comment</span></h3>
+                    <div class="post-footer__comment__detail">
+
+                      <div class="comment__item">
+                        <div class="comment__item__avatar">
+                          <img src="{% static "apps/assets/images/post_detail/avatar/1.png"%}" alt="Author avatar">
+                        </div>
+                        <div class="comment__item__content">
+                          <div class="comment__item__content__header">
+                            <h5>David Yu</h5>
+                            <div class="data">
+                              <p><i class="far fa-clock"></i>Nov 02, 2020</p>
+                              <p><i class="far fa-heart"></i>12</p>
+                              <p><i class="far fa-share-square"></i>1</p>
+                            </div>
+                          </div>
+                          <p>Exactly. E.g. In IoT doing Machine Learning at the Edge (as in Edge Computing) oftentimes Kubernetes or containers in
+                             general aren't possible. Serverless is the only lightweight code that can actually run there.</p>
+                        </div>
+                      </div>
+
+                      <div class="comment__item">
+                        <div class="comment__item__avatar"><img src="{% static "apps/assets/images/post_detail/avatar/3.png"%}" alt="Author avatar"></div>
+                        <div class="comment__item__content">
+                          <div class="comment__item__content__header">
+                            <h5>Rodgers </h5>
+                            <div class="data">
+                              <p><i class="far fa-clock"></i>Nov 02, 2020</p>
+                              <p><i class="far fa-heart"></i>12</p>
+                              <p><i class="far fa-share-square"></i>1</p>
+                            </div>
+                          </div>
+                          <p>Awesome article. Great job!!!
+                            It offers the elements to compounds the "Big Picture" which can guide our decisions.Thank you.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- comment Form -->
+                    <h3 class="comment-title"> <span>Leave a comment</span></h3>
+                    <div class="post-footer__comment__form">
+                      <form action="/">
+                        <textarea cols="30" rows="5" placeholder="Messages" name="message"></textarea>
+                      </form>
+                      <div class="center">
+                        <button class="btn -normal">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

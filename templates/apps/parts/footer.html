@@ -1,0 +1,84 @@
+{% load static %}
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="footer-col -about">
+                        <div class="center-line-title">
+                            <h5>About us</h5>
+                        </div>
+                        <p>{{ custom_about.short_description }}</p>
+                        <div class="contact-method">
+                            <p><i class="fas fa-map-marker-alt"></i>{{ custom_about.location }}</p>
+                            <p><i class="far fa-mobile-android"></i>{{ custom_about.phone }}</p>
+                            <p><i class="far fa-envelope-open"></i>{{ custom_about.email }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="footer-col -feature-post">
+                        <div class="center-line-title">
+                            <h5>Feature posts</h5>
+                        </div>
+                        <div class="feature-post-block">
+                            {% for custom_post in custom_posts %}
+                                <div class="post-card -tiny">
+                                    <a class="card__cover" href="{% url 'post' custom_post.slug %}">
+                                        <!-- img size 360 x 360 -->
+                                        <img src="{{ custom_post.image.url }}"
+                                             alt="Best Open Source Tools For Developers"/>
+                                    </a>
+                                    <div class="card__content">
+                                        <h5 class="card__content-category">Open source</h5>
+                                        <a class="card__content-title"
+                                           href="{% url 'post' custom_post.slug %}">{{ custom_post.title }}</a>
+                                        <div class="card__content-info">
+                                            <div class="info__time"><i class="far fa-clock"></i>
+                                                <p>{{ custom_post.posted_at }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-12 col-lg-4">
+                    <div class="footer-col -util">
+                        <div class="row">
+                            <!-- Blog Tags -->
+                            <div class="col-12 col-md-6 col-lg-12">
+                                <div class="center-line-title">
+                                    <h5>Blog Tags</h5>
+                                </div>
+                                    {% for custom_category in custom_categories %}
+                                        <a class="tag-btn" href="?category={{ custom_category.slug }}">{{ custom_category.name }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <!-- Social Media -->
+                            <div class="col-12 col-md-6 col-lg-12">
+                                <div class="center-line-title">
+                                    <h5>Follow us</h5>
+                                </div>
+                                <div class="social-block">
+                                    {% for key, val in custom_about.social.items %}
+                                        <a href="{{ val }}"><i class="fab fa-{{ key }}"></i></a>
+                                    {% endfor %}
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2022, Fuse - All rights reserved.</p>
+        </div>
+    </div>
+</footer>

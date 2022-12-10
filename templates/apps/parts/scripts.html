@@ -1,0 +1,51 @@
+{% load static %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script rel="script/javascript" src="{% static 'apps/assets/js/jquery.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'apps/assets/js/slick.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'apps/assets/js/plyr.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'apps/assets/js/masonry.pkgd.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'apps/assets/js/imagesloaded.pkgd.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'apps/assets/js/vimeo.player.min.js' %}"></script>
+<script rel="script/javascript" src="{% static 'apps/assets/js/main.js' %}"></script>
+
+<script>
+    $("#read-more-post").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/pages/test/",
+            data: {id: $(this).val(), access_token: $("#access_token").val()},
+            success: function (result) {
+                alert('ok');
+            },
+            error: function (result) {
+                alert('error');
+            }
+        });
+    });
+</script>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation');
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+    CKEDITOR.replace('editor1', {
+        width: "100%",
+    });
+</script>
