@@ -2,10 +2,7 @@
 <header class="theme-default">
     <div id="search-box">
         <div class="container">
-            <form action="/" method="POST">
-                <input type="text" placeholder="Searching for news" name="search"/>
-                <button><i class="fas fa-arrow-right"></i></button>
-            </form>
+            <form action="/" method="POST">z</form>
         </div>
     </div>
     <div class="container">
@@ -40,7 +37,7 @@
 
                 <div class="social">
                 {% for i, v in custom_about.social.items %}
-                    <a href="#"><i class="fab fa-{{ i }}"></i></a>
+                    <a href="{{ v }}"><i class="fab fa-{{ i }}"></i></a>
 
                 {% endfor %}
                 <a id="mobile-menu-controller" href="#"><i class="fas fa-bars"></i></a>
@@ -48,11 +45,11 @@
 
             </div>
         {% if user.is_anonymous %}
-        <a class="btn btn-toolbar" href="{% url 'register_page' %}">Sign up</a>
-            <a class="btn btn-toolbar" href="{% url 'login_page' %}">Log in</a>
+        <a class="btn btn-danger" href="{% url 'register_page' %}">Sign up</a>
+            <a class="btn btn-danger" href="{% url 'login_page' %}">Log in</a>
             {% else %}
-            <a class="btn btn-toolbar" href="{% url 'profile' %}">My profile</a>
-            <a class="btn btn-toolbar" href="{% url 'logout_page' %}">Log out</a>
+            <a class="btn btn-outline-danger" href="{% url 'profile' %}">My profile</a>
+            <a class="btn btn-danger" href="{% url 'logout_page' %}">Log out</a>
         {% endif %}
 
         </div>

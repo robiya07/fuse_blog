@@ -44,8 +44,11 @@
                                             <div class="info__comment"><i class="far fa-comment"></i>
                                                 <p>{{ post.comment_count }}</p>
                                             </div>
+                                            <div class="info__comment"><i class="far fa-eye"></i>
+                                                <p>{{ post.views }}</p>
+                                            </div>
                                         </div>
-                                        <p class="card__content-description">{{ post.body|safe|truncatechars:150 }}</p>
+                                        <p class="card__content-description">{{ post.body|safe|striptags|truncatechars:150 }}</p>
                                     </div>
                                 </div>
                             </div>

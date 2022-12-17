@@ -12,18 +12,19 @@
                     <div class="row">
                         <div class="col-sm-6 col-md-12">
                             <div class="post-card -full -center">
-                                <a class="card__cover" href="{% url 'post' last_post.slug%}">
+                                <a class="card__cover" href="{% url 'post' last_post.slug %}">
                                     <img src="{{ last_post.image.url }}"
                                          alt="Getting started with DevOps automation"/>
                                 </a>
                                 <div class="card__content">
                                     <!-- Content Category -->
-                                    <h5 class="card__content-category">{{ last_post.category.name }}</h5>
+                                    <h5 class="card__content-category">{{ last_post.category.first.name }}</h5>
                                     <!-- Content Heading -->
-                                    <a class="card__content-title" href="{% url 'post' last_post.slug%}">{{ last_post.title }}</a>
+                                    <a class="card__content-title"
+                                       href="{% url 'post' last_post.slug %}">{{ last_post.title }}</a>
                                     <div class="card__content-info">
                                         <!-- Content Author -->
-                                        <div class="info__time info__author"><i class="far fa-user"></i>
+                                        <div class="info__time"><i class="far fa-user"></i>
                                             <p>{{ last_post.user.username }}</p>
                                         </div>
                                         <!-- Content Time and Date -->
@@ -31,13 +32,17 @@
                                             <p>{{ last_post.posted_at }}</p>
                                         </div>
                                         <!-- Comments -->
-                                        <div class="info__comment"><i class="far fa-comment"></i>
+                                        <div class="info__comment">
+                                            <i class="far fa-comment"></i>
                                             <p>{{ last_post.comment_count }}</p>
+
+                                            <i class="far fa-eye pl-3" ></i>
+                                            <p>{{ last_post.views }}</p>
                                         </div>
                                     </div>
 
                                     <!-- post Description -->
-                                    <p class="card__content-description">{{ last_post.body|safe|truncatechars:80|wordwrap:80 }}</p>
+                                    <p class="card__content-description">{{ last_post.body|safe|striptags|truncatechars:80|wordwrap:80 }}</p>
                                     <a class="more-btn" href="{% url 'post' last_post.slug %}">Read more </a>
                                 </div>
                             </div>
@@ -58,7 +63,7 @@
                                                                  alt={{ last_post.title }}/></a>
                                                         <!-- Post content -->
                                                         <div class="card__content">
-                                                            <h5 class="card__content-category">{{ last_post.category.name }}</h5>
+                                                            <h5 class="card__content-category">{{ last_post.category.first.name }}</h5>
                                                             <a class="card__content-title"
                                                                href="{% url 'post' last_post.slug %}">{{ last_post.title }}</a>
                                                             <div class="card__content-info">
@@ -68,20 +73,22 @@
                                                                 <div class="info__comment"><i
                                                                         class="far fa-comment"></i>
                                                                     <p>{{ last_post.comment_count }}</p>
+                                                                    <i
+                                                                        class="far fa-eye pl-3"></i>
+                                                                    <p>{{ last_post.views }}</p>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             {% endfor %}
-
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <a class="btn btn-outline-primary" href="{% url "blog" %}" style="margin: auto" >show more</a>
+                        <a class="btn btn-danger" href="{% url "blog" %}" style="margin: auto">show more</a>
                     </div>
                 </div>
 

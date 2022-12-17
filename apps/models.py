@@ -8,6 +8,7 @@ from django.db import models
 # Create your models here.
 from django.db.models import TextField, CharField, ForeignKey, CASCADE, ImageField, DateField, RESTRICT, IntegerField, \
     BooleanField, SlugField, ManyToManyField, DateTimeField, JSONField, EmailField, TextChoices
+from django.utils.html import format_html
 from django.utils.text import slugify
 
 
@@ -20,6 +21,10 @@ class User(AbstractUser):
     social = JSONField(null=True, blank=True)
     subscribe = BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = 'Foydalanuvchilar'
+        verbose_name = 'Foydalanuvchi'
+
 
 class Category(models.Model):
     name = CharField(max_length=255)
@@ -27,7 +32,8 @@ class Category(models.Model):
     slug = SlugField(max_length=255)
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = 'Kategoriyalar'
+        verbose_name = 'Kategoriya'
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -62,8 +68,13 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Teglar'
+        verbose_name = 'Teg'
+
 
 class Post(models.Model):
+
     class StatusChoice(TextChoices):
         ACTIVE = 'active', 'Faol'
         CANCEL = 'cancel', 'Bekor qilindi'
@@ -79,6 +90,10 @@ class Post(models.Model):
     image = ImageField(upload_to='post/%m', default='default/default_post.jpg')
     views = IntegerField(default=0)
     slug = SlugField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = 'Postlar'
+        verbose_name = 'Post'
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -96,8 +111,7 @@ class Post(models.Model):
                         self.slug = slug + '-1'
                 else:
                     self.slug += '-1'
-
-            super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -106,12 +120,38 @@ class Post(models.Model):
     def comment_count(self):
         return self.comment_set.count()
 
+    def update_views(self):
+        self.views += 1
+        self.save()
+        return self.views
+
+    def status_button(self):
+        if self.status == self.StatusChoice.PENDING:
+            return format_html(
+                f"""<a href="active/{self.id}"> 
+                        <input type="button" style="background-color: #4DB621;" value="active" name="status">
+                    </a>
+                    <a href="cancel/{self.id}">
+                        <input type="button" style="background-color: #FF545E;" value="cancel" name="status">
+                    </a>""")
+        elif self.status == self.StatusChoice.ACTIVE:
+            return format_html(
+                """<a style="color: green; font-size: 1.10em;margin-top: 8px; margin: auto;">Activated</a>"""
+            )
+        return format_html(
+            """<a style="color: #FF545E; font-size: 1.10em;margin-top: 8px; margin: auto;">Canceled</a>"""
+        )
+
 
 class Comment(models.Model):
     user = ForeignKey(User, on_delete=RESTRICT)
     text = RichTextUploadingField()
     created_at = DateTimeField(auto_now=True)
     post = ForeignKey(Post, on_delete=RESTRICT)
+
+    class Meta:
+        verbose_name_plural = 'Izohlar'
+        verbose_name = 'Izoh'
 
 
 class About(models.Model):
@@ -123,3 +163,14 @@ class About(models.Model):
     location = CharField(max_length=255)
     phone = CharField(max_length=255)
     email = EmailField(max_length=255)
+
+    class Meta:
+        verbose_name_plural = 'Malumotlar'
+        verbose_name = 'Biz haqimizda'
+
+    def save(self, *args, **kwargs):
+        for i, v in self.social.items():
+            if not v.startswith('http'):
+                self.social[i] = f'https://{v}'
+        super().save(*args, **kwargs)
+

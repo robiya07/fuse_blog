@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password
 from django.core.exceptions import ValidationError
 from django.forms import CharField, EmailField, PasswordInput, DateField, ModelForm
 
-from apps.models import User
+from apps.models import User, Post, Comment
 
 
 class RegistrationForm(ModelForm):
@@ -39,3 +39,36 @@ class ProfileForm(ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'phone', 'bio', 'avatar')
+
+
+class AddPostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'body', 'image', 'category')
+
+
+class ChangePasswordForm(ModelForm):
+    def clean_password(self):
+        user = self.instance
+        new_pas = self.data.get('new_password')
+        if user.check_password(self.data.get('password')):
+            if new_pas == self.data.get('confirm_password'):
+                return make_password(new_pas)
+
+        raise ValidationError('Old or New password didn\'t match')
+
+    class Meta:
+        model = User
+        fields = ('password',)
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('text',)
+
+
+class ResetPasswordForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('password', )

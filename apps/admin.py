@@ -2,6 +2,9 @@ from django.contrib import admin
 
 # Register your models here.
 from django.contrib.admin import ModelAdmin
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
+from django.urls import path
 from django.utils.html import format_html
 
 from apps.models import Category, User, Tag, Comment, Post, About
@@ -9,7 +12,10 @@ from apps.models import Category, User, Tag, Comment, Post, About
 
 @admin.register(Category)
 class CategoryAdmin(ModelAdmin):
-    list_display = ('name',)
+    list_display = ('name', 'images')
+
+    def images(self, obj):
+        return format_html(f'<img src="{obj.image.url}" width="150" height="100">')
 
 
 @admin.register(User)
@@ -31,6 +37,7 @@ class CommentAdmin(ModelAdmin):
 @admin.register(Post)
 class PostAdmin(ModelAdmin):
     search_fields = ('category__name',)
+    change_form_template = 'admin/change_post_form.html'
 
     list_display = ('title', 'user', 'views', 'categories', 'images', 'status_icon', 'status_button')
     exclude = ('slug',)
@@ -50,11 +57,38 @@ class PostAdmin(ModelAdmin):
         }
         return format_html(icons[obj.status])
 
-    def status_button(self, obj):
-        return format_html("""<input type="submit" style="background-color: #96be5b;" value="active" name="status">
-        <input type="submit" style="background-color: #de8652;" value="cancel" name="status">""")
+    def get_urls(self):
+        url = super().get_urls()
+        url += [
+            path('active/<int:id>', self.active),
+            path('cancel/<int:id>', self.cancel)
+        ]
+        return url
+
+    def active(self, request, id):
+        post = Post.objects.get(id=id)
+        post.status = Post.StatusChoice.ACTIVE
+        post.save()
+        return HttpResponseRedirect('../')
+
+    def cancel(self, request, id):
+        post = Post.objects.get(id=id)
+        post.status = Post.StatusChoice.CANCEL
+        post.save()
+        return HttpResponseRedirect('../')
+
+    def response_change(self, request, obj: Post):
+        if request.POST.get('view'):
+            return redirect('post', obj.slug)
+        elif request.POST.get('status') in (Post.StatusChoice.ACTIVE, Post.StatusChoice.CANCEL):
+            obj.status = request.POST.get('status').lower()
+            obj.save()
+
+
+        return super().response_change(request, obj)
 
 
 @admin.register(About)
 class AboutAdmin(ModelAdmin):
     list_display = ('title', 'image', 'phone', 'email')
+

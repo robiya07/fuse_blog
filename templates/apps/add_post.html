@@ -1,0 +1,103 @@
+{% extends 'apps/parts/base.html' %}
+{% load static %}
+{% block main_contents %}
+    <main>
+
+        <!-- =======================
+        Main contain START -->
+        <section class="py-4">
+            <div class="container">
+                <div class="row pb-4">
+                    <div class="col-12">
+                        <!-- Title -->
+                        <h1 class="mb-0 h2">Create a post</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Chart START -->
+                        <div class="card border">
+                            <!-- Card body -->
+                            <div class="card-body">
+                                <!-- Form START -->
+                                <form method="post" action="{% url 'add-post' %}">
+                                    {% csrf_token %}
+
+                                    <!-- Main form -->
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <!-- Post name -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Post name</label>
+                                                <input required id="con-name" name="title" type="text"
+                                                       class="form-control" placeholder="Post name">
+                                                <small>Enter title here</small>
+                                            </div>
+                                        </div>
+                                        <!-- Short description -->
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <label class="form-label">Description </label>
+                                                <textarea id="editor1" class="form-control" rows="3"
+                                                          placeholder="Add description" name="body"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <!-- Image -->
+                                                <div class="position-relative">
+                                                    <h6 class="my-2">Upload post image here, or<a href="#"
+                                                                                                  class="text-primary">
+                                                        Browse</a></h6>
+                                                    <label class="w-100" style="cursor:pointer;">
+                      <span>
+                        <input class="form-control stretched-link" type="file" name="my-image" id="image"
+                               accept="image/gif, image/jpeg, image/png">
+                      </span>
+                                                    </label>
+                                                </div>
+                                                <p class="small mb-0 mt-2"><b>Note:</b> Only JPG, JPEG and PNG. Our
+                                                    suggested dimensions are 600px * 450px. Larger image will be cropped
+                                                    to 4:3 to fit our thumbnails/previews.</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <!-- Message -->
+                                            <div class="mb-3">
+                                                <label class="form-label">Category</label>
+                                                <select class="form-select" aria-label="Default select example"
+                                                        name="category" required multiple>
+                                                    {% for custom_category in custom_categories %}
+                                                        <option value="{{ custom_category.id }}">{{ custom_category.name }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <!-- Create post button -->
+                                        <div class="col-md-12 text-start">
+                                            <button class="btn btn-danger w-100" type="submit">Create post</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- Form END -->
+                            </div>
+                        </div>
+                        <!-- Chart END -->
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =======================
+        Main convaaaytain END -->
+
+    </main>
+{% endblock %}
+
+<script src="{% static 'assets/js/bootstrap.bundle.min.js' %}"></script>
+
+<!-- Vendors -->
+<script src="{% static 'assets/js/apexcharts.min.js' %}"></script>
+<script src="{% static 'assets/js/quill.min.js' %}"></script>
+
+<!-- Template Functions -->
+<script src="{% static 'assets/js/functions.js' %}"></script>

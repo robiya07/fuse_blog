@@ -7,7 +7,8 @@
 <script rel="script/javascript" src="{% static 'apps/assets/js/imagesloaded.pkgd.min.js' %}"></script>
 <script rel="script/javascript" src="{% static 'apps/assets/js/vimeo.player.min.js' %}"></script>
 <script rel="script/javascript" src="{% static 'apps/assets/js/main.js' %}"></script>
-
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 <script>
     $("#read-more-post").on("click", function (e) {
         e.preventDefault();
@@ -48,4 +49,11 @@
     CKEDITOR.replace('editor1', {
         width: "100%",
     });
+
+    function phoneMask() {
+        let num = $(this).val().replace(/\D/g, '');
+        $(this).val('+' + num.substring(0, 3) + ' (' + num.substring(3, 5) + ') ' + num.substring(5, 8) + '-' + num.substring(8, 10) + '-' + num.substring(10, 12));
+    }
+
+    $('[type="tel"]').keyup(phoneMask);
 </script>
