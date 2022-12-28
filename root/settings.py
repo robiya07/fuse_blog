@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'apps',
     'ckeditor',
     'ckeditor_uploader',
-    'fontawesomefree'
+    'fontawesomefree',
+    'django_celery_results',
+    'django_crontab',
+    'qr_code',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -66,13 +70,15 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'apps.context_processors.custom_about',
-                'apps.context_processors.custom_categories',
-                'apps.context_processors.custom_posts',
+                'apps.utils.context_processors.custom_about',
+                'apps.utils.context_processors.custom_categories',
+                'apps.utils.context_processors.custom_posts',
             ],
         },
     },
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -204,4 +210,28 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_ACCEPT_CONTEN = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Tashkent'
+
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'blog9829@gmail.com'
+EMAIL_FROM = 'blog9829@gmail.com'
+EMAIL_HOST_PASSWORD = 'gqazdtrpqzrsfcsp'
+
+DEFAULT_FROM_EMAIL = 'Celery <blog9829@gmail.com>'
+
+CRONJOBS = [
+    ('0 0 * * *', 'apps.utils.cron.delete_blog')
+]
+

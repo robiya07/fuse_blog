@@ -1,0 +1,8 @@
+<-- django_project/users/templates/template_activate_account.html -->
+{% autoescape off %}
+Hi {{ user.username }},
+
+Please click on the link below to confirm your registration:
+
+http://{{ domain }}{% url 'reset' uidb64=uid token=token %}
+{% endautoescape %}

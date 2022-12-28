@@ -1,0 +1,48 @@
+https://bitly.com/ ✅
+(1haftadan keyin link larni ochirib tashaydi)
+
+
+0) blog, admin tomonidan tasdiqlanishi (adminkada status bolishi, active, cancel, pending) ✅
+1) ckeditor ulanishi ruyhatdan otgan odam blog qosha olishi ✅
+2) /contact xabarlarni adminkada chiqadigan qilish kk, va tagida button(xabar yuborish [pochtasiga yuborilsin])
+3) adminka ozbekcha bolsin (faqat app nomlari) ✅
+4) post detailda (preview, cancel, active degan buttonlar bolsin) ✅
+5) profile page (user ozining malumotlarini ozgartiradi, my posts) ✅
+6) post detailda yana 1ta button (pdf ga otkazish) ✅
+7) githubga qoyish ✅
+8) phone numberni chiroyli chiqarish ✅
+9) cron bilan cancel bolgan postlarni 7kundan keyin delete qilsin
+10) register ✅
+11) reset password (login page parolni unutib qoldirdim)
+12) change password (profile page da) ✅
+13) confirm email (one time link) ✅
+14) django command (region, district) ✅
+15) sms yuborish (profile pageda tasdiqlash buttoni boladi)
+16) google, telegram (github or gitlab)
+17) qr code ✅
+
+
+blog, todo, bitly hammasi githubda readme bilan bolishi kk
+
+e-commerce
+blog-website
+
+task olx.uz tayyorlash
+asosiy oynada qidiruv bolishi
+asosiy page 20ta elon
+category
+
+
+Template based
+
+
+1) bitly ✅
+2) todo list (home)
+3) portfolio (home)
+4) blog
+5) e-commerce (home)
+(shu model exam)
+
+
+6) chat
+
