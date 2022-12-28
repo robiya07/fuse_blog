@@ -1,5 +1,4 @@
-{% load qr_code %}
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE HTML>
 <html>
 <head>
     <title>{{ post.title }}</title>
@@ -45,10 +44,14 @@
         }
 
 
-x    </style>
+    </style>
 </head>
 <body>
 <div class='wrapper'>
+    <img align="right"
+         src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1:8000/post/{{ post.slug }}&amp;size=100x100"
+         alt="qr-code" style="float: right">
+
     <div class='header'>
         <p class='title'>{{ post.title }}</p>
     </div>
@@ -56,9 +59,7 @@ x    </style>
     <div class="details">
         {{ post.body|safe }}
     </div>
-    <div><img
-            src="https://api.qrserver.com/v1/create-qr-code/?data=127.0.0.1:8000/post/{{ post.slug }}&amp;size=100x100"
-            alt="qr-code" style="float: right"></div>
+    <div></div>
 </div>
 </body>
 </html>
