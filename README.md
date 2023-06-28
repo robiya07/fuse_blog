@@ -87,19 +87,20 @@ Activate virtual environment
   . .venv/bin/activate
 ```
 
-Migrate
-
-```bash
-  python3 manage.py makemigrations
-  python3 manage.py migrate
-```
-
 Install dependencies
 
 ```bash
   pip install -r requirements/base.txt
   pip install -r requirements/development.txt
   pip install -r requirements/production.txt
+```
+
+
+Migrate
+
+```bash
+  python3 manage.py makemigrations
+  python3 manage.py migrate
 ```
 
 Start the server
