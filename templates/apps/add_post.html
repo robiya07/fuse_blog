@@ -20,7 +20,7 @@
                             <!-- Card body -->
                             <div class="card-body">
                                 <!-- Form START -->
-                                <form method="post" action="{% url 'add-post' %}">
+                                <form method="post" action="{% url 'add-post' %}" enctype="multipart/form-data">
                                     {% csrf_token %}
 
                                     <!-- Main form -->
@@ -51,7 +51,7 @@
                                                         Browse</a></h6>
                                                     <label class="w-100" style="cursor:pointer;">
                       <span>
-                        <input class="form-control stretched-link" type="file" name="my-image" id="image"
+                        <input class="form-control stretched-link" type="file" name="image" id="image"
                                accept="image/gif, image/jpeg, image/png">
                       </span>
                                                     </label>

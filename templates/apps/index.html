@@ -12,6 +12,7 @@
                     <div class="row">
                         <div class="col-sm-6 col-md-12">
                             <div class="post-card -full -center">
+                                {% if last_post %}
                                 <a class="card__cover" href="{% url 'post' last_post.slug %}">
                                     <img src="{{ last_post.image.url }}"
                                          alt="Getting started with DevOps automation"/>
@@ -45,6 +46,7 @@
                                     <p class="card__content-description">{{ last_post.body|safe|striptags|truncatechars:80|wordwrap:80 }}</p>
                                     <a class="more-btn" href="{% url 'post' last_post.slug %}">Read more </a>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="news-block__content -default">

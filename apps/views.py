@@ -1,6 +1,7 @@
 import datetime
 import pyqrcode
 import png
+import self as self
 from pyqrcode import QRCode
 
 from django.contrib import redirects
@@ -43,6 +44,7 @@ class IndexView(ListView):
         context['url'] = reverse('blog')
         context['trending'] = enumerate(Post.objects.order_by('-views').all()[:5], 1)
         return context
+
 
 
 class BlogView(ListView):
@@ -170,14 +172,33 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
 
-class AddPostView(LoginRequiredMixin, FormView):
-    form_class = AddPostForm
+class ProfileDetailView(LoginRequiredMixin, ListView):
+    model = Post
+    template_name = 'apps/profile_detail.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Post.objects.filter(user=user)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user'] = self.request.user
+        return context
+
+
+class AddPostView(LoginRequiredMixin, CreateView):
     template_name = 'apps/add_post.html'
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('index')
+    model = Post
+    form_class = AddPostForm
 
     def form_valid(self, form):
         obj = form.save(False)
         obj.user = self.request.user
+        if 'image' in self.request.FILES:
+            form.instance.image = self.request.FILES['image']
+            form.instance.save()
         form.save()
         return super().form_valid(form)
 
@@ -233,7 +254,6 @@ class PdfView(View):
     def get(self, request, *args, **kwargs):
         slug = kwargs.get('slug')
         post = Post.objects.get(slug=slug)
-
 
         data = {
             'post': post

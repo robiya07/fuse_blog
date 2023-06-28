@@ -23,18 +23,18 @@ class User(AbstractUser):
     is_active = BooleanField(default=False)
 
     class Meta:
-        verbose_name_plural = 'Foydalanuvchilar'
-        verbose_name = 'Foydalanuvchi'
+        verbose_name_plural = 'Users'
+        verbose_name = 'User'
 
 
 class Category(models.Model):
     name = CharField(max_length=255)
     image = ImageField(upload_to='category', default='default/default_post.jpg')
-    slug = SlugField(max_length=255)
+    slug = SlugField(max_length=255, blank=True)
 
     class Meta:
-        verbose_name_plural = 'Kategoriyalar'
-        verbose_name = 'Kategoriya'
+        verbose_name_plural = 'Categories'
+        verbose_name = 'Category'
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -70,8 +70,8 @@ class Tag(models.Model):
         return self.name
 
     class Meta:
-        verbose_name_plural = 'Teglar'
-        verbose_name = 'Teg'
+        verbose_name_plural = 'Tags'
+        verbose_name = 'Tag'
 
 
 class ActiveBlogsManager(Manager):
@@ -86,9 +86,9 @@ class CancelBlogsManager(Manager):
 
 class Post(models.Model):
     class StatusChoice(TextChoices):
-        ACTIVE = 'active', 'Faol'
-        CANCEL = 'cancel', 'Bekor qilindi'
-        PENDING = 'pending', 'Kutilmoqda'
+        ACTIVE = 'active', 'Aktive'
+        CANCEL = 'cancel', 'Canceled'
+        PENDING = 'pending', 'Waiting'
 
     title = CharField(max_length=255)
     body = RichTextUploadingField()
@@ -106,7 +106,7 @@ class Post(models.Model):
     cancel = CancelBlogsManager()
 
     class Meta:
-        verbose_name_plural = 'Postlar'
+        verbose_name_plural = 'Posts'
         verbose_name = 'Post'
 
     def save(self, *args, **kwargs):
@@ -164,10 +164,8 @@ class Comment(models.Model):
     post = ForeignKey(Post, on_delete=RESTRICT)
 
     class Meta:
-        verbose_name_plural = 'Izohlar'
-        verbose_name = 'Izoh'
-
-
+        verbose_name_plural = 'Comments'
+        verbose_name = 'Comment'
 
 
 class About(models.Model):
@@ -180,10 +178,9 @@ class About(models.Model):
     phone = CharField(max_length=255)
     email = EmailField(max_length=255)
 
-
     class Meta:
-        verbose_name_plural = 'Malumotlar'
-        verbose_name = 'Biz haqimizda'
+        verbose_name_plural = 'Abouts'
+        verbose_name = 'About us'
 
     def save(self, *args, **kwargs):
         for i, v in self.social.items():

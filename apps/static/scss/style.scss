@@ -1,0 +1,166 @@
+
+
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+@import "bootstrap/mixins";
+
+$font-family-sans-serif-2: 'Poppins', sans-serif;
+$font-family-serif: 'Source Serif Pro', serif;
+
+
+
+body {
+	font-family: $font-family-sans-serif;
+	font-weight: 300;
+	background: #efefef;
+}
+p {
+	color: darken(#ccc, 10%);
+	
+}
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+	font-family: $font-family-sans-serif;
+}
+a {
+	transition: .3s all ease;
+	&, &:hover {
+		text-decoration: none!important;
+	}
+}
+.content {
+	padding: 7rem 0;
+}
+h2 {
+	font-size: 20px;
+}
+
+
+
+.custom-dropdown {
+	> a {
+		color: $black;
+		.arrow {
+			display: inline-block;
+			position: relative;
+			transition: .3s transform ease;
+		}
+	}
+	&.show {
+		> a {
+			// color: $white;
+			.arrow {
+				transform: rotate(-180deg);
+			}
+		}
+	}
+
+	.btn {
+		&:active, &:focus {
+			box-shadow: none!important;
+			outline: none;
+		}	
+		&.btn-custom {
+			border: 1px solid #efefef;	
+		}
+	}
+
+
+	.title-wrap {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.title {
+		font-size: 12px;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+
+	.dropdown-link {
+		// background: $blue;
+		// color: $white;
+		// padding: 10px 10px;
+
+		.profile-pic {
+			flex: 0 0 50px;
+			img {
+				width: 50px;
+				border-radius: 50%;
+			}
+		}
+		.profile-info {
+			h3, span {
+				margin: 0;
+				padding: 0;
+			}
+			h3 {
+				font-size: 16px;
+			}
+			span {
+				display: block;
+				font-size: 13px;
+			}
+		}
+	}
+	
+
+	.dropdown-menu {
+		border: 1px solid transparent!important;
+		box-shadow: 0 15px 30px 0 rgba($black, .2);
+		margin-top: -10px!important;
+		padding-top: 0;
+		padding-bottom: 0;
+		opacity: 0;
+		border-radius: 0;
+		background: $white;
+		right: auto!important;
+		left: auto!important;
+		transition: .3s margin-top ease, .3s opacity ease, .3s visibility ease;
+		visibility: hidden;
+		&.active {
+			opacity: 1;
+			visibility: visible;
+			margin-top: 0px!important;
+		}
+
+		a {
+			border-bottom: 1px solid rgba($black, .1);
+			font-size: 14px;
+			padding: 15px 15px;
+			position: relative;
+			color: lighten($dark, 50%);
+			&:last-child {
+				border-bottom: none;
+			}
+			.icon {
+				margin-right: 15px;
+				display: inline-block;
+			}
+			&:hover, &:active, &:focus {
+				background: $white;
+				color: $black;
+				.number {
+					color: $white;
+				}
+			}
+
+			.number {
+				padding: 2px 6px;
+				font-size: 11px;
+				background: $orange;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				right: 15px;
+				border-radius: 4px;
+				color: $white;
+			}
+		}		
+
+	}
+
+
+	&.show {
+		
+	}
+}

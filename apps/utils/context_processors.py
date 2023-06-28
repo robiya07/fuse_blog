@@ -1,4 +1,5 @@
 from apps.models import About, Post, Category
+from datetime import date
 
 
 def custom_about(request):
@@ -17,3 +18,11 @@ def custom_categories(request):
     return {
         "custom_categories": Category.objects.all()[:5],
     }
+
+
+def custom_trending(request):
+    return {"trending": enumerate(Post.objects.order_by('-views').all()[:5], 1)}
+
+
+def this_year(request):
+    return {'year': date.today().year}

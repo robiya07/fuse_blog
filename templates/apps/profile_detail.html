@@ -1,0 +1,89 @@
+{% extends 'apps/parts/base.html' %}
+{% load static %}
+{% block title %}My Profile{% endblock %}
+
+{% block main_contents %}
+    <section style="background-color: #eee;">
+
+        <div class="container py-5 mx-auto">
+            <div class="container mt-5 d-flex justify-content-center">
+                <div class="card p-3">
+                    <div class="d-flex align-items-center">
+                        <div class="image">
+                            <img src="{{ user.avatar.url }}"
+                                 class="rounded" width="155">
+                        </div>
+                        <div class="ml-3 w-100">
+                            <h4 class="mb-0 mt-0">{{ user.get_full_name }}</h4>
+                            <span>{{ user.email }}</span>
+                            {#                            <br><br>#}
+                            <div class="d-flex justify-content-center mb-2 py-3">
+                                <a href="{% url "profile" %}" type="button" class="btn btn-primary mr-2">Edit
+                                    Profile</a>
+                                <a href="{% url "add-post" %}" type="button" class="btn btn-outline-primary ms-1">+ Add
+                                    Post</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container py-5">
+                <div class="col-lg-8">
+                    <div class="news-block__content -default">
+                        <div class="news-block__content__slide">
+                            <h3>Your posts</h3>
+                            <div class="row">
+                                <div class="col-12">
+                                </div>
+                                <div class="col-12">
+                                    <div class="row">
+                                        {% for last_post in posts %}
+                                            <div class="col-12 col-sm-6">
+                                                <div class="post-card -small">
+                                                    <a class="card__cover" href="{% url 'post' last_post.slug %}">
+                                                        <!-- img size 370 x 247 -->
+                                                        <img src="{{ last_post.image.url }} "
+                                                             alt={{ last_post.title }}/></a>
+                                                    <!-- Post content -->
+                                                    <div class="card__content">
+                                                        <h5 class="card__content-category">{{ last_post.category.first.name }}</h5>
+                                                        <a class="card__content-title"
+                                                           href="{% url 'post' last_post.slug %}">{{ last_post.title }}</a>
+                                                        <div class="card__content-info">
+                                                            <div class="info__time"><i class="far fa-clock"></i>
+                                                                <p>{{ last_post.posted_at }}</p>
+                                                            </div>
+                                                            <div class="info__comment"><i
+                                                                    class="far fa-comment"></i>
+                                                                <p>{{ last_post.comment_count }}</p>
+                                                                <i
+                                                                        class="far fa-eye pl-3"></i>
+                                                                <p>{{ last_post.views }}</p>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    <br>
+                                    <a class="btn btn-danger mr-4" href="{% url "my-posts" %}" container="">show
+                                        more</a>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}

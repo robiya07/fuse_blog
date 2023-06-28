@@ -8,7 +8,7 @@
 
 
             <!--Category 1::Background Image size is 340 x 80   -->
-            {% for category in categories %}
+            {% for category in custom_categories %}
                 <a class="category -bar " href="{{ url }}?category={{ category.slug }}">
                     <div class="category__background"
                          style="background-image: url({{ category.image.url }})"></div>
@@ -28,10 +28,11 @@
             {% for i, v in trending %}
                 <div class="trending-post">
                     <div class="trending-post_image">
-                        <div class="rank">{{ i }}</div>
+
                         <!--Img size is 100 x 100 -->
-                        <img src="{{ v.image.url }}"
+                        <img src="{{ v.image.url }}" style="filter: brightness(70%)"
                              alt="{{ v.title }}"/>
+                        <div class="rank">{{ i }}</div>
                     </div>
                     <div class="trending-post_content">
                         <!-- Category Header -->
@@ -46,15 +47,6 @@
 
 
         </div>
-        <!-- Subscribe Form -->
-        {% if not user.subscribe %}
-        <form class="subcribe-box subcribe-box" action="/" method="POST">
-            <h5>Subcribe</h5>
-            <p>Lorem ipsum dolor amet, consectetur adipiscing elit, sed tempor.</p>
-            <input placeholder="Your email" name="email" type="email"/>
-            <a class="btn -normal" href="#">Subcribe</a>
-        </form>
-        {% endif %}
         
     </div>
 </div>

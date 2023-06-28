@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_crontab',
     'qr_code',
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -73,6 +74,8 @@ TEMPLATES = [
                 'apps.utils.context_processors.custom_about',
                 'apps.utils.context_processors.custom_categories',
                 'apps.utils.context_processors.custom_posts',
+                'apps.utils.context_processors.this_year',
+                'apps.utils.context_processors.custom_trending',
             ],
         },
     },
@@ -210,6 +213,10 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
+
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
 CELERY_ACCEPT_CONTEN = ['application/json']
@@ -234,4 +241,3 @@ DEFAULT_FROM_EMAIL = 'Celery <blog9829@gmail.com>'
 CRONJOBS = [
     ('0 0 * * *', 'apps.utils.cron.delete_blog')
 ]
-

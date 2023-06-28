@@ -2,7 +2,7 @@
 <header class="theme-default">
     <div id="search-box">
         <div class="container">
-            <form action="/" method="POST">z</form>
+            <form action="/" method="POST"></form>
         </div>
     </div>
     <div class="container">
@@ -17,7 +17,7 @@
                     <li class="nav-item {% if request.path == '/blog' %}
                     active
                     {% endif %} "><a href="{% url 'blog' %}">Blog</a>
-                        
+
                     </li>
                     <li class="nav-item{% if request.path == '/about' %}
                     active
@@ -31,23 +31,60 @@
             <div class="header__icon-group"><a href="#" id="search"><i class="fas fa-search"></i></a>
 
                 <div class="social">
-                {% for i, v in custom_about.social.items %}
-                    <a href="{{ v }}"><i class="fab fa-{{ i }}"></i></a>
+                    {% for i, v in custom_about.social.items %}
+                        <a href="{{ v }}"><i class="fab fa-{{ i }}"></i></a>
 
-                {% endfor %}
-                <a id="mobile-menu-controller" href="#"><i class="fas fa-bars"></i></a>
+                    {% endfor %}
+                    <a id="mobile-menu-controller" href="#"><i class="fas fa-bars"></i></a>
                 </div>
 
             </div>
-        {% if user.is_anonymous %}
-        <a class="btn btn-danger" href="{% url 'register_page' %}">Sign up</a>
-            <a class="btn btn-danger" href="{% url 'login_page' %}">Log in</a>
+            {% if user.is_anonymous %}
+                <a class="btn btn-danger" href="{% url 'register_page' %}">Sign up</a>
+                <a class="btn btn-danger" href="{% url 'login_page' %}">Log in</a>
             {% else %}
-            <a class="btn btn-outline-danger" href="{% url 'profile' %}">My profile</a>
-            <a class="btn btn-danger" href="{% url 'logout_page' %}">Log out</a>
-        {% endif %}
+                <img src="{% static "images/avatar.jpg" %}" class="user-pic" onclick="toggleMenu()">
+
+            <div class="sub-menu-wrap" id="subMenu">
+                <div class="sub-menu">
+                    <div class="user-info">
+                        <h3>{{ request.user.username }}</h3>
+                    </div>
+                    <hr>
+                    <a href="{% url "profile_detail" request.user.username %}" class="sub-menu-link">
+
+                        <p>My Profile</p>
+                        <span>></span>
+                    </a>
+                    <a href="{% url 'my-posts' %}" class="sub-menu-link">
+                        <p>My Posts</p>
+                        <span>></span>
+                    </a>
+{#                    <a href="#" class="sub-menu-link">#}
+{#                        <p>Help & Support</p>#}
+{#                        <span>></span>#}
+{#                    </a>#}
+                    <a href="{% url 'logout_page' %}" class="sub-menu-link">
+                        <p>Logout</p>
+                        <span>></span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+
+
+
+
 
         </div>
 
     </div>
+
 </header>
+<script>
+        let subMenu = document.getElementById('subMenu');
+
+        function toggleMenu() {
+            subMenu.classList.toggle('open-menu')
+        }
+    </script>

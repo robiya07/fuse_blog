@@ -7,27 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fuse Blog</title>
     {% include 'apps/parts/styles.html' %}
+
     <!-- Google Font -->
-	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&family=Rubik:wght@400;500;700&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-    <div id="load">
-        <div class="load__content">
-            <div class="load__icon"><img src="{% static 'apps/assets/images/icons/load.gif'  %}" alt="Loading icon"/></div>
-        </div>
+<div id="load">
+    <div class="load__content">
+        <div class="load__icon"><img src="{% static 'apps/assets/images/icons/load.gif' %}" alt="Loading icon"/></div>
     </div>
-    {% include 'apps/parts/header.html' %}
+</div>
+{% include 'apps/parts/header.html' %}
 
 
-    <div id="content">
-        {% block main_contents %}
+<div id="content">
+    {% block main_contents %}
 
-        {% endblock %}
-    </div>
-    {% if request.path != '/profile' %}
+    {% endblock %}
+</div>
+{% if request.path != '/profile' %}
     {% include 'apps/parts/footer.html' %}
-    {% endif %}
+{% endif %}
 </body>
 {% include 'apps/parts/scripts.html' %}
 </html>

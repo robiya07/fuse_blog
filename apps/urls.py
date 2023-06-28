@@ -7,8 +7,8 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
     PasswordResetCompleteView
 from apps import views
 from apps.views import IndexView, BlogView, PostView, RegistrationView, LoginPageView, AboutView, ContactView, \
-    ProfileView, AddPostView, MyPostsView, PdfView, ChangePasswordView, LeaveCommentView, ResetPasswordView, \
-    ForgotPasswordPage, QrCodeView
+      ProfileView, AddPostView, MyPostsView, PdfView, ChangePasswordView, LeaveCommentView, ResetPasswordView, \
+      ForgotPasswordPage, QrCodeView, ProfileDetailView
 from root.settings import STATIC_URL, MEDIA_URL, MEDIA_ROOT
 
 urlpatterns = [
@@ -21,6 +21,7 @@ urlpatterns = [
       path('login', LoginPageView.as_view(), name='login_page'),
       path('logout', LogoutView.as_view(next_page=reverse_lazy('index')), name='logout_page'),
       path('profile', ProfileView.as_view(), name='profile'),
+      path('profile-detail/<str:username>', ProfileDetailView.as_view(), name='profile_detail'),
       path('add-post', AddPostView.as_view(), name='add-post'),
       path('my-posts', MyPostsView.as_view(), name='my-posts'),
       path('pdf/<str:slug>', PdfView.as_view(), name='to_pdf'),

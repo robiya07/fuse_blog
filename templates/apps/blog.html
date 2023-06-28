@@ -1,88 +1,88 @@
 {% extends 'apps/parts/base.html' %}
 {% load static %}
 {% block main_contents %}
-<div class="container">
-    <div class="breadcrumb">
-        <ul>
-            <li><a href="{% url 'index' %}"> <i class="fas fa-home"></i>Home</a></li>
-            <li><a href="#">Blog</a></li>
-            <li class="active"><a href="#">Category</a></li>
-        </ul>
-    </div>
-    <div class="category">
-        <div class="row">
-            {% include 'apps/parts/blog-sidebar.html' %}
-            <div class="col-12 col-md-7 col-lg-8 order-md-1">
-                <div class="category__header">
-                    <div class="category__header__text">
+    <div class="container">
+        <div class="breadcrumb">
+            <ul>
+                <li><a href="{% url 'index' %}"> <i class="fas fa-home"></i>Home</a></li>
+                <li><a href="#">Blog</a></li>
+                <li class="active"><a href="#">Category</a></li>
+            </ul>
+        </div>
+        <div class="category">
+            <div class="row">
+                {% include 'apps/parts/blog-sidebar.html' %}
+                <div class="col-12 col-md-7 col-lg-8 order-md-1">
+                    <div class="category__header">
+                        <div class="category__header__text">
 
-                        <h5>Categories:</h5>
-                        {% if category %}
-                        <a href="{% url 'blog' %}?category={{ category.slug }}">{{ category.slug }}</a>
+                            <h5>Categories:</h5>
+                            {% if category %}
+                                <a href="{% url 'blog' %}?category={{ category.slug }}">{{ category.slug }}</a>
                             {% else %}
-                            <h5>All</h5>
-                        {% endif %}
+                                <h5>All</h5>
+                            {% endif %}
+                        </div>
+                        <div class="category__header__filter">
+                        </div>
                     </div>
-                    <div class="category__header__filter">
-                    </div>
-                </div>
-                <div class="category_content -list">
-                    <div class="row">
-                        {% for post in posts %}
-                            <div class="col-12">
-                                <div class="post-card -small -horizontal">
-                                    <a class="card__cover" href="{% url 'post' post.slug %}" tabindex="0"><img
-                                            src="{{ post.image.url }}"></a>
-                                    <div class="card__content">
-                                        <h5 class="card__content-category">{{ post.category.first.name }}</h5>
-                                        <a class="card__content-title" href="{% url 'post' post.slug %}"
-                                           tabindex="0">{{ post.title }}</a>
-                                        <div class="card__content-info">
-                                            <div class="info__time"><i class="far fa-clock"></i>
-                                                <p>{{ post.posted_at }}</p>
+                    <div class="category_content -list">
+                        <div class="row">
+                            {% for post in posts %}
+                                <div class="col-12">
+                                    <div class="post-card -small -horizontal">
+                                        <a class="card__cover" href="{% url 'post' post.slug %}" tabindex="0"><img
+                                                src="{{ post.image.url }}"></a>
+                                        <div class="card__content">
+                                            <h5 class="card__content-category">{{ post.category.first.name }}</h5>
+                                            <a class="card__content-title" href="{% url 'post' post.slug %}"
+                                               tabindex="0">{{ post.title }}</a>
+                                            <div class="card__content-info">
+                                                <div class="info__time"><i class="far fa-clock"></i>
+                                                    <p>{{ post.posted_at }}</p>
+                                                </div>
+                                                <div class="info__comment"><i class="far fa-comment"></i>
+                                                    <p>{{ post.comment_count }}</p>
+                                                </div>
+                                                <div class="info__comment"><i class="far fa-eye pl-3"></i>
+                                                    <p>{{ post.views }}</p>
+                                                </div>
                                             </div>
-                                            <div class="info__comment"><i class="far fa-comment"></i>
-                                                <p>{{ post.comment_count }}</p>
-                                            </div>
-                                            <div class="info__comment"><i class="far fa-eye pl-3"></i>
-                                                <p>{{ post.views }}</p>
-                                            </div>
+                                            <p class="card__content-description">{{ post.body|safe|striptags|truncatechars:150 }}</p>
                                         </div>
-                                        <p class="card__content-description">{{ post.body|safe|striptags|truncatechars:150 }}</p>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
-
-
-                    </div>
-                    <div class="pagination">
-
-                        {% if page_obj.has_other_pages %}
-                        <ul>
-                            {% if page_obj.has_previous %}
-                                <li><a href="?page={{ page_obj.previous_page_number }}"><</a></li>
-                            {% endif %}
-
-                            {% for i in page_obj.paginator.page_range %}
-                            {% if page_obj.number == i %}
-                                <li class="active">{{ i }}</li>
-                                {% else %}
-                                <li><a href="?page={{ i }}">{{ i }}</a></li>
-                            {% endif %}
-
-
                             {% endfor %}
-                            {% if page_obj.has_next %}
-                                <li><a class="next" href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+
+
+                        </div>
+                        <div class="pagination">
+
+                            {% if page_obj.has_other_pages %}
+                                <ul>
+                                    {% if page_obj.has_previous %}
+                                        <li><a href="?page={{ page_obj.previous_page_number }}"><</a></li>
+                                    {% endif %}
+
+                                    {% for i in page_obj.paginator.page_range %}
+                                        {% if page_obj.number == i %}
+                                            <li class="active">{{ i }}</li>
+                                        {% else %}
+                                            <li><a href="?page={{ i }}">{{ i }}</a></li>
+                                        {% endif %}
+
+
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                        <li><a class="next" href="?page={{ page_obj.next_page_number }}">&gt;</a></li>
+                                    {% endif %}
+
+                                </ul>
                             {% endif %}
+                        </div>
 
-                        </ul>
-                        {% endif %}
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
 {% endblock %}
