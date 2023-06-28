@@ -26,28 +26,42 @@ The social platform Fuse Blog is an inspiring and dynamic online community where
 - Jumping to a post's detail page: Administrators have the ability to go directly to a post's detail page from the admin panel. This allows them to quickly view information about a particular post, including comments and interactions with the author or other contributors
 ## Screenshots
 
+
+Home Page:
+
 ![Home Page](https://github.com/robiya07/fuse_blog/blob/master/medias/readme/Screenshot%20from%202023-06-28%2016-39-22.png)
 
 
+
+All Posts:
 
 ![All Posts](https://github.com/robiya07/fuse_blog/blob/master/medias/readme/Screenshot%20from%202023-06-28%2016-39-28.png)
 
 
 
+About Page:
+
 ![About Page](https://github.com/robiya07/fuse_blog/blob/master/medias/readme/Screenshot%20from%202023-06-28%2016-39-37.png)
 
 
+
+Contact Page:
 
 ![Contact Page](https://github.com/robiya07/fuse_blog/blob/master/medias/readme/Screenshot%20from%202023-06-28%2016-39-43.png)
 
 
 
+Profile Page:
+
 ![Profile Page](https://github.com/robiya07/fuse_blog/blob/master/medias/readme/Screenshot%20from%202023-06-28%2016-42-44.png)
 
 
 
+Edit Profile Page:
+
 ![Edit Profile Page](https://github.com/robiya07/fuse_blog/blob/master/medias/readme/Screenshot%20from%202023-06-28%2016-43-48.png)
 ## Run Locally
+
 
 Clone the project
 
